@@ -26,8 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(@Qualifier("userServices") UserDetailsService userDetailsService, SuccessUserHandler successUserHandler) {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;
-        System.out.println("Запуск конструктора  SecurityConfig ");
-        //System.out.println(userDetailsService.loadUserByUsername("1"));
+
     }
 
 /*    private final SuccessUserHandler successUserHandler;
@@ -41,13 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure( HttpSecurity  httpSecurity) throws Exception {
         //System.out.println("configure from securityConfig");
         httpSecurity
-                .csrf()
+                    .csrf()
                     .disable()
                     .authorizeRequests()
                     .antMatchers("/login").anonymous()
 
                     .antMatchers("/admin/**").access("hasAnyRole('ROLE_ADMIN')")
-                    .antMatchers("/user/**").access("hasAnyRole('ROLE_USER')")
+                    .antMatchers("/users/**").access("hasAnyRole('ROLE_USER')")
                     //.anyRequest().authenticated()
                 .and()
                     .formLogin()

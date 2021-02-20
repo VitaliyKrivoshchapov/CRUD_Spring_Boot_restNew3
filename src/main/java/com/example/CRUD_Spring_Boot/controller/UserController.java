@@ -1,17 +1,14 @@
 package com.example.CRUD_Spring_Boot.controller;
 
-import com.example.CRUD_Spring_Boot.model.User;
 import com.example.CRUD_Spring_Boot.service.UserServices;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
     private final UserServices userServices;
@@ -22,21 +19,18 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String getUserById(@PathVariable("id") Long id, Model model) {
-
+        System.out.println("Работает getUserById из под юзера");
         model.addAttribute("user", userServices.findById(id));
         return "userGetUserById";
     }
 
-    @GetMapping("/users")
+/*    @GetMapping("/users")
     public String findAllUsers(Model model){
         List<User> users = userServices.findAll();
-        //System.out.println(users.toString());
-        //User user = users.get(1);
-        //System.out.println(userServices.loadUserByUsername("1"));
         model.addAttribute("users",users);
         return "user";
-    }
-
+    }*/
+/*
     @GetMapping("/newUser")
     public String newUserForm(User user){
         return "newUser";
@@ -67,5 +61,5 @@ public class UserController {
 
     userServices.saveUser(user);
     return "redirect:/users";
-    }
+    }*/
 }
