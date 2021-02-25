@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User update</title>
+</head>
+<body>
+<h1>Редактирование пользователя доступное пользователю</h1>
+<form action="#" th:action="@{/user/updateUser}" th:object="${user}" method="post">
+ <!--   <form th: method="patch" th:action="@{/updateUser/{id}(id=${user.getId()})}" th:object="${user}" >-->
+
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
+    <label for="age">Age</label>
+    <input type="text" th:field="*{age}" id="age" placeholder="Age">
+    <br/>
+    <label for="firstname">First name</label>
+    <input type="text" th:field="*{firstName}" id="firstname" placeholder="First Name">
+    <br/>
+     <label for="lastName">Last name</label>
+    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
+    <br/>
+     <label for="mail">Mail</label>
+    <input type="text" th:field="*{mail}" id="mail" placeholder="mail">
+    <br/>
+  <!--  <br/>
+    <label for="mail">Password</label>
+    <input type="text" th:field="*{password}" id="password" placeholder="mail">
+    <br/>-->
+    <input type="submit" value="Update!"/>
+<!--
+<h1>Редактирование пользователя</h1>
+<form action="#" th:action="@{/updateUser}" th:object="${user}" method="post">
+&lt;!&ndash;<form th:method="PATCH" th:action="@{/users/{id} (id=${user.getId()})}" th:object="${user}">&ndash;&gt;
+    <label for="name"> Enter first name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="age"> Enter age: </label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <br/>
+<label for="age"> Enter age: </label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <br/>
+<label for="age"> Enter age: </label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <br/>
+<label for="age"> Enter age: </label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>-->
+
+</form>
+</body>
+</html>

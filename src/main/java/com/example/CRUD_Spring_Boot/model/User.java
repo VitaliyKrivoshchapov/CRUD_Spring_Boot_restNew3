@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor//работает и без этих аннотаций CRUD
+//@NoArgsConstructor//работает и без этих аннотаций CRUD
 @Entity
 @Table(name = "users")
 public class User implements UserDetails, Serializable {
@@ -42,6 +42,39 @@ public class User implements UserDetails, Serializable {
     @ManyToMany(fetch = FetchType.EAGER) // узнать что такое fetch = FetchType.EAGER
     private Set<Role> roles;
 
+    public User() {
+    }
+
+    public User(Long id, String mail, String password) {
+        this.id = id;
+        this.mail = mail;
+        this.password = password;
+    }
+
+    public User(String mail, String password, Set<Role> roles) {
+        this.mail = mail;
+        this.password = password;
+        this.roles = roles;
+    }
+/*    public User(String firstName, String password) {
+        this.firstName = firstName;
+        this.password = password;
+    }
+
+    public User(String firstName, String password, Set<Role> roles) {
+        this.firstName = firstName;
+        this.password = password;
+        this.roles = roles;
+    }*/
+
+    public User( String firstName, int age, String lastName, String mail, String password) {
+        this.firstName = firstName;
+        this.age = age;
+        this.lastName = lastName;
+        this.mail = mail;
+        this.password = password;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -54,9 +87,13 @@ public class User implements UserDetails, Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    @Override
+   /* @Override
     public String getUsername() {
         return firstName;
+    }*/
+   @Override
+    public String getUsername() {
+        return mail;
     }
 
     @Override
@@ -77,6 +114,14 @@ public class User implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

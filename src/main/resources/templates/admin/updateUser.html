@@ -6,28 +6,60 @@
     <title>User update</title>
 </head>
 <body>
-<h1>Редактирование пользователя</h1>
-<form action="#" th:action="@{/updateUser}" th:object="${user}" method="post">
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+<h1>Редактирование пользователя админом</h1>
+<!--
+<form action="#" th:action="@{/admin/updateUser}" th:object="${user}" method="post">
+-->
+
+<form action="#" th:action="@{/admin/updateUser/{id}(id=${user.getId()})}" th:object="${user}" method="post">
+        <input type="hidden" name="id" th:value="${id}"/>
+
+    <label for="age">Enter age</label>
+    <input type="text" th:field="*{age}" id="age"/>
     <br/>
-    <label for="age">Age</label>
-    <input type="text" th:field="*{age}" id="age" placeholder="Age">
+    <label for="firstName">Enter name</label>
+    <input type="text" th:field="*{firstName}" id="firstName"/>
     <br/>
-    <label for="firstname">First name</label>
-    <input type="text" th:field="*{firstName}" id="firstname" placeholder="First Name">
+    <label for="lastname">Enter lastname</label>
+    <input type="text" th:field="*{lastName}" id="lastname"/>
     <br/>
-     <label for="lastName">Last name</label>
-    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
+    <label for="mail">Enter mail</label>
+    <input type="text" th:field="*{mail}" id="mail"/>
+
+    <br/><label for="password">Password</label>
+    <input type="text" th:field="*{password}" id="password"/>
     <br/>
-     <label for="mail">Mail</label>
-    <input type="text" th:field="*{mail}" id="mail" placeholder="mail">
+
+    <li th:each="role : ${roles}">
+        <input type="checkbox" name="setRoles" th:value="${role}"
+               th:text="${role}" />
+    </li>
+    <!--
+        <label for="firstName">Enter name</label>
+        <input type="text"id="firstName" name="firstName"th:value="${firstName}"/>
+        <br/>
+        <label for="lastName">Enter surname</label>
+        <input type="text"id="lastName" name="lastName"th:value="${lastName}"/>
+        <br/>
+        <label for="age">Enter age</label>
+        <input type="text"id="age" name="age"th:value="${age}"/>
+        <br/>
+        <label for="mail">Enter mail</label>
+        <input type="text"id="mail" name="mail"th:value="${mail}"/>
+        <br/>
+
+        <label for="password">Enter password</label>
+        <input type="text"id="password" name="password"th:value="${password}"/>
+
     <br/>
-    <br/>
-    <label for="mail">Password</label>
-    <input type="text" th:field="*{password}" id="password" placeholder="mail">
-    <br/>
-    <input type="submit" value="Update!"/>
+        <label for="user">ROLE_USER</label>
+        <input type="checkbox" name="roles" value="USER" id="user" checked>
+        <label for="admin">ROLE_ADMIN</label>
+        <input type="checkbox" name="roles" value="ADMIN" id="admin">
+        <br/>-->
+        <button type="submit" value="Save">Save</button>
+    </form>
+
 <!--
 <h1>Редактирование пользователя</h1>
 <form action="#" th:action="@{/updateUser}" th:object="${user}" method="post">

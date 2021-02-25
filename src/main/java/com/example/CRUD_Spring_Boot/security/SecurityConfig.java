@@ -11,11 +11,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ComponentScan("com")
-@Configuration
+@Configuration("com")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -46,19 +47,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/login").anonymous()
 
                     .antMatchers("/admin/**").access("hasAnyRole('ROLE_ADMIN')")
-                    .antMatchers("/users/**").access("hasAnyRole('ROLE_USER')")
+                    .antMatchers("/user/**").access("hasAnyRole('ROLE_USER')")
                     //.anyRequest().authenticated()
                 .and()
                     .formLogin()
-                    //.loginPage("/login")
-                    //.usernameParameter("j_username")
-                    //.passwordParameter("j_password")
-                    .successHandler(successUserHandler)
+                    .successHandler(successUserHandler)//обработчик успешной аутинтификации
                     .permitAll()
                 .and()
                     .logout()
                     .permitAll()
-                    .logoutUrl("/logout")
+                    //.logoutUrl("/logout")
                     .logoutSuccessUrl("/login");
     }
 
@@ -71,4 +69,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+/*    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        authenticationProvider.setUserDetailsService(userService);
+        return authenticationProvider;
+    }*/
+
 }

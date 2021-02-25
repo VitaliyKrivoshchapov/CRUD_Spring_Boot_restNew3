@@ -23,7 +23,7 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
             httpServletResponse.sendRedirect("/admin");
         } else {
             User user = (User) authentication.getPrincipal();
-            httpServletResponse.sendRedirect("/users/" + user.getId());
+            httpServletResponse.sendRedirect("/user/" + user.getId());
         }
     }
 

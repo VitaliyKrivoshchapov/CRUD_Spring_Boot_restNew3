@@ -1,65 +1,51 @@
 package com.example.CRUD_Spring_Boot.controller;
 
+import com.example.CRUD_Spring_Boot.model.User;
 import com.example.CRUD_Spring_Boot.service.UserServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserServices userServices;
 
+    @Autowired
     public UserController(UserServices userServices) {
         this.userServices = userServices;
     }
 
     @GetMapping("/{id}")
-    public String getUserById(@PathVariable("id") Long id, Model model) {
-        System.out.println("Работает getUserById из под юзера");
+    public String getUserById(@PathVariable("id") Long id, Model model, Principal principal) {
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(a);//получаем информацию о пользователе
+
+        //System.out.println(principal.getName());
+
         model.addAttribute("user", userServices.findById(id));
-        return "userGetUserById";
+        return "user/index";
     }
 
-/*    @GetMapping("/users")
-    public String findAllUsers(Model model){
-        List<User> users = userServices.findAll();
-        model.addAttribute("users",users);
-        return "user";
-    }*/
-/*
-    @GetMapping("/newUser")
-    public String newUserForm(User user){
-        return "newUser";
-    }
-    @PostMapping("/newUser")
-
-    public String newUser(User user){
-        userServices.saveUser(user);
-        return  "redirect:/users";
-    }
-
-    @GetMapping("/delUser/{id}")
-    public String delUser(@PathVariable("id") Long id){
-        userServices.deleteById(id);
-        return "redirect:/users";
-    }
-
-    @GetMapping("/updateUser/{id}")
+    /*    @GetMapping("/updateUser/{id}")
     public String updateUserForm (@PathVariable("id") Long id, Model model){
-        System.out.println("GetMapping user update");
         User user = userServices.findById(id);
+        System.out.println(" GetMapping from usercontroller");
         model.addAttribute("user",user);
-        return "/updateUser";
+        return "/user/updateUser";
     }
 
     @PostMapping("/updateUser")
     public String updateUser(User user){
-
-    userServices.saveUser(user);
-    return "redirect:/users";
+        System.out.println(" Post mapping from usercontroll");
+        userServices.saveUser(user);
+    return "redirect:/user/{id}";
     }*/
 }

@@ -6,7 +6,9 @@
     <title>New User</title>
 </head>
 <body>
-<form action="#" th:action="@{/newUser}" th:object="${user}" method="post">
+<form action="#" th:action="@{/admin/newUser}" th:object="${user}" method="post">
+<!--  <form  th:method="PATH" th:action="@{/newUser}" th:object="${user}" method="post">-->
+
 
   <label for="id"></label><input hidden type="text" th:field="*{id}" id="id"/>
 
@@ -15,7 +17,6 @@
   <br/>
   <label for="firstName">Enter name</label>
   <input type="text" th:field="*{firstName}" id="firstName"/>
-
   <br/>
   <label for="lastname">Enter lastname</label>
   <input type="text" th:field="*{lastName}" id="lastname"/>
@@ -23,6 +24,14 @@
   <label for="mail">Enter mail</label>
   <input type="text" th:field="*{mail}" id="mail"/>
   <br/>
+<label for="password">Enter password</label>
+  <input type="text" th:field="*{password}" id="password"/>
+  <br/>
+
+  <li th:each="role : ${roles}">
+    <input type="checkbox" name="setRoles" th:value="${role}"
+           th:text="${role}" />
+  </li>
 <!--  <label for="password">Enter password</label>
   <input type="text" th:field="*{password}" id="password"/>
   <br/>-->
