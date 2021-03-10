@@ -91,9 +91,30 @@ public class User implements UserDetails, Serializable {
     public String getUsername() {
         return firstName;
     }*/
-   @Override
-    public String getUsername() {
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getMail() {
         return mail;
+    }
+
+    @Override
+    public String getUsername() {
+        return firstName;
     }
 
     @Override

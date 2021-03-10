@@ -29,9 +29,23 @@ public class AdminController{
     }
 
     @GetMapping()
-    public String findAllUsers(Model model){
+    public String findAllUsers(Model model,Principal principal){
         List<User> users = userServices.findAll();
         model.addAttribute("users",users);
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("name",a.getName());
+
+//---------------------------
+        User user = (User) a.getPrincipal();
+        model.addAttribute("userGotIn", user);
+//--------------------
+
+        Set<Role> role = new HashSet<>();
+        role.add(userServices.getRolById(1L));
+        role.add(userServices.getRolById(2l));
+        model.addAttribute("newUser",new User());
+        model.addAttribute("roles",role);
+
         return "admin/index";
     }
 
@@ -45,18 +59,13 @@ public class AdminController{
     public String newUserForm(@ModelAttribute("user")  User user){
         return "admin/newUser";
     }*/
-
-    @GetMapping("/newUser")
+/*    @GetMapping("/newUser")
     public  String newUserForm(ModelMap modelMap){
-        Set<Role> role = new HashSet<>();
-        role.add(userServices.getRolById(1L));
-        role.add(userServices.getRolById(2l));
-        modelMap.addAttribute("user",new User());
-        modelMap.addAttribute("roles",role);
         return "admin/newUser";
-    }
+    }*/
+
     @PostMapping("/newUser")
-    public  String newUser(@ModelAttribute("user") User user, @RequestParam(value = "setRoles",required = false) String roles){
+    public  String newUser(@ModelAttribute("newUser") User user, @RequestParam(value = "setRoles",required = false) String roles){
         if (roles == null) roles = " ";
         userServices.saveUser(user,roles);
         //System.out.println(roles);
@@ -70,14 +79,15 @@ public class AdminController{
 
     @GetMapping("/updateUser/{id}")
     public String updateUserForm (@PathVariable("id") Long id, Model model){
+        System.out.println("Работаю в ");
         User user = userServices.findById(id);
         Set<Role> role = new HashSet<>();
         role.add(userServices.getRolById(1L));
         role.add(userServices.getRolById(2l));
         model.addAttribute("roles",role);
         model.addAttribute("user",user);
-
-        return "/admin/updateUser";
+        return "/admin/index" ;
+        /*return "/admin/updateUser";*/
     }
 
     @PostMapping("/updateUser/{id}")
