@@ -157,4 +157,5 @@ public class User implements UserDetails, Serializable {
                 ", roles=" + roles +
                 '}';
     }
+
 }

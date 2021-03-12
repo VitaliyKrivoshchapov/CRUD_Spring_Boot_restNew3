@@ -34,12 +34,12 @@ public class AdminController{
         model.addAttribute("users",users);
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("name",a.getName());
-
+        System.out.println("a.getName  " + a.getName());
+        System.out.println("a.getPrincipal()" + a.getPrincipal());
 //---------------------------
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
 //--------------------
-
         Set<Role> role = new HashSet<>();
         role.add(userServices.getRolById(1L));
         role.add(userServices.getRolById(2l));
@@ -87,15 +87,12 @@ public class AdminController{
         model.addAttribute("roles",role);
         model.addAttribute("user",user);
         return "/admin/index" ;
-        /*return "/admin/updateUser";*/
-    }
 
+    }
     @PostMapping("/updateUser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "setRoles",required = false) String roles){
         System.out.println(roles);
-        // Authentication a = SecurityContextHolder.getContext().getAuthentication();
-       //System.out.println(a);
-       System.out.println("User get from PostMapping"+user);
+        System.out.println("User get from PostMapping"+user);
 
         //userServices.upDateUser(user);
         userServices.upDateUser(user,roles);

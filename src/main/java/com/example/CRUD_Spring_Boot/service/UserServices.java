@@ -54,8 +54,6 @@ public class UserServices implements UserDetailsService{
             roleSet.add(roleRepository.findRoleById(1L)); //
         if ((roles!=null)&(roles.contains("USER")))
             roleSet.add(roleRepository.findRoleById(2L)); //
-
-
         user.setRoles(roleSet);
         userRepository.save(user);
     }
