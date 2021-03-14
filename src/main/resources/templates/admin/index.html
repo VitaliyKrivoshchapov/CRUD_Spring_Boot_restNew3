@@ -30,7 +30,7 @@
 <div class="p-3 mb-2 bg-dark text-white">
     <div class="row">
         <div class="col-md-10">
-            <a th:text="${userGotIn.getMail}"></a> With role: <a th:text="${userGotIn.getRoles()}"></a>
+            <a th:text="${userGotIn.getMail}"></a> With role: <a th:text="${userGotIn.getRoleStr(userGotIn)}"></a>
         </div>
         <div class="col-2">
             <a href="/logout" class="text-primary pr-3">Logout</a>

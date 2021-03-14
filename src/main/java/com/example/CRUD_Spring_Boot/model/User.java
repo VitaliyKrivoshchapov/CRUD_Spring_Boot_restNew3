@@ -56,6 +56,14 @@ public class User implements UserDetails, Serializable {
         this.password = password;
         this.roles = roles;
     }
+    public String getRoleStr(User user){
+        String roleStr = new String();
+        Set<Role>set = user.getRoles();
+        for (Role role : set){
+            roleStr+= role.getRole().replace("ROLE"," ");
+        }
+        return roleStr;
+    }
 /*    public User(String firstName, String password) {
         this.firstName = firstName;
         this.password = password;
