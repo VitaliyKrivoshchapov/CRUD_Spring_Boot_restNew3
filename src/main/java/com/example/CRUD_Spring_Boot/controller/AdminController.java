@@ -6,6 +6,7 @@ import com.example.CRUD_Spring_Boot.repository.RoleRepository;
 //import com.example.CRUD_Spring_Boot.service.RoleServices;
 import com.example.CRUD_Spring_Boot.service.UserServices;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,8 +35,8 @@ public class AdminController{
         model.addAttribute("users",users);
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("name",a.getName());
-        System.out.println("a.getName  " + a.getName());
-        System.out.println("a.getPrincipal()" + a.getPrincipal());
+       /* System.out.println("a.getName  " + a.getName());
+        System.out.println("a.getPrincipal()" + a.getPrincipal());*/
 //---------------------------
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
@@ -54,6 +55,14 @@ public class AdminController{
         model.addAttribute("user", userServices.findById(id));
         return "admin/userGetUserById";
     }
+    @GetMapping("/userIndex")
+    public String user(@AuthenticationPrincipal User user, Model model){
+        //System.out.println("userIndex из admincontroller");//тут работает
+        model.addAttribute("user",user);
+        model.addAttribute("roles",user.getRoles());
+        return "admin/userIndex";
+    }
+
 /*
     @GetMapping("/newUser") //Работает
     public String newUserForm(@ModelAttribute("user")  User user){
@@ -79,19 +88,19 @@ public class AdminController{
 
     @GetMapping("/updateUser/{id}")
     public String updateUserForm (@PathVariable("id") Long id, Model model){
-        System.out.println("Работаю в ");
+        //System.out.println("Работаю в ");
         User user = userServices.findById(id);
         Set<Role> role = new HashSet<>();
         role.add(userServices.getRolById(1L));
         role.add(userServices.getRolById(2l));
         model.addAttribute("roles",role);
         model.addAttribute("user",user);
-        return "/admin/index" ;
+        return "/admin" ;
 
     }
     @PostMapping("/updateUser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "setRoles",required = false) String roles){
-        System.out.println(roles);
+
         System.out.println("User get from PostMapping"+user);
 
         //userServices.upDateUser(user);
