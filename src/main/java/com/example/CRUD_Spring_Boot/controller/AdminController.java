@@ -102,7 +102,7 @@ public class AdminController{
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "setRoles",required = false) String roles){
 
         System.out.println("User get from PostMapping"+user);
-
+        System.out.println(roles);
         //userServices.upDateUser(user);
         userServices.upDateUser(user,roles);
         return "redirect:/admin";
