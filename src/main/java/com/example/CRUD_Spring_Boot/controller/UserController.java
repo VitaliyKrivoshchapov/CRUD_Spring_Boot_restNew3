@@ -1,6 +1,7 @@
 package com.example.CRUD_Spring_Boot.controller;
 
 import com.example.CRUD_Spring_Boot.model.User;
+import com.example.CRUD_Spring_Boot.service.UserDetailsServices;
 import com.example.CRUD_Spring_Boot.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

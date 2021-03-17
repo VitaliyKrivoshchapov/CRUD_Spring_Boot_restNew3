@@ -2,21 +2,19 @@ package com.example.CRUD_Spring_Boot.controller;
 
 import com.example.CRUD_Spring_Boot.model.Role;
 import com.example.CRUD_Spring_Boot.model.User;
-import com.example.CRUD_Spring_Boot.repository.RoleRepository;
 //import com.example.CRUD_Spring_Boot.service.RoleServices;
+import com.example.CRUD_Spring_Boot.service.UserDetailsServices;
 import com.example.CRUD_Spring_Boot.service.UserServices;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 @Controller
@@ -30,13 +28,11 @@ public class AdminController{
     }
 
     @GetMapping()
-    public String findAllUsers(Model model,Principal principal){
+    public String findAllUsers(Model model){
         List<User> users = userServices.findAll();
         model.addAttribute("users",users);
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("name",a.getName());
-       /* System.out.println("a.getName  " + a.getName());
-        System.out.println("a.getPrincipal()" + a.getPrincipal());*/
 //---------------------------
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
@@ -77,7 +73,6 @@ public class AdminController{
     public  String newUser(@ModelAttribute("newUser") User user, @RequestParam(value = "setRoles",required = false) String roles){
         if (roles == null) roles = " ";
         userServices.saveUser(user,roles);
-        //System.out.println(roles);
         return  "redirect:/admin";
     }
     @GetMapping("/delUser/{id}")
@@ -88,7 +83,6 @@ public class AdminController{
 
     @GetMapping("/updateUser/{id}")
     public String updateUserForm (@PathVariable("id") Long id, Model model){
-        //System.out.println("Работаю в ");
         User user = userServices.findById(id);
         Set<Role> role = new HashSet<>();
         role.add(userServices.getRolById(1L));
@@ -100,10 +94,6 @@ public class AdminController{
     }
     @PostMapping("/updateUser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "setRoles",required = false) String roles){
-
-        System.out.println("User get from PostMapping"+user);
-        System.out.println(roles);
-        //userServices.upDateUser(user);
         userServices.upDateUser(user,roles);
         return "redirect:/admin";
     }

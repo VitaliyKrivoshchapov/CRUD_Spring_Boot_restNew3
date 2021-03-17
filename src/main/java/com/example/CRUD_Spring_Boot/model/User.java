@@ -60,7 +60,8 @@ public class User implements UserDetails, Serializable {
         String roleStr = new String();
         Set<Role>set = user.getRoles();
         for (Role role : set){
-            roleStr+= role.getRole().replace("ROLE"," ");
+            roleStr+= role.getRole().replace("ROLE"," ").replace("["," ").replace("]","").
+                    replace(","," ").replace("_"," ");
         }
         return roleStr;
     }
