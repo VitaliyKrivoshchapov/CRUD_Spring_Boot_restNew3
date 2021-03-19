@@ -39,6 +39,9 @@ public class User implements UserDetails, Serializable {
     @Column(name = "password")
     private String password;
 
+    @Transient
+    private String roleForHTML;
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(name = "users_roles",
@@ -169,6 +172,14 @@ public class User implements UserDetails, Serializable {
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public String getRoleForHTML() {
+        return roleForHTML;
+    }
+
+    public void setRoleForHTML(String roleForHTML) {
+        this.roleForHTML = roleForHTML;
     }
 
 }

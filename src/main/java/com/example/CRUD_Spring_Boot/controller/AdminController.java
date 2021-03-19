@@ -81,7 +81,14 @@ public class AdminController{
         return "redirect:/admin";
     }
 
-    @GetMapping("/updateUser/{id}")
+    @PostMapping("/updateUser/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+        //System.out.println("What you say?");
+        userServices.upDateUser(id,user);
+        return "redirect:/admin";
+    }
+
+/*    @GetMapping("/updateUser/{id}")
     public String updateUserForm (@PathVariable("id") Long id, Model model){
         User user = userServices.findById(id);
         Set<Role> role = new HashSet<>();
@@ -90,12 +97,13 @@ public class AdminController{
         model.addAttribute("roles",role);
         model.addAttribute("user",user);
         return "/admin" ;
+    }*/
 
-    }
+/*
     @PostMapping("/updateUser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "setRoles",required = false) String roles){
         userServices.upDateUser(user,roles);
         return "redirect:/admin";
-    }
+    }*/
 }
 
