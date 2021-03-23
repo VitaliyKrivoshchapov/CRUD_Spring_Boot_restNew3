@@ -37,11 +37,9 @@ public class AdminController{
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
 //--------------------
-        Set<Role> role = new HashSet<>();
-        role.add(userServices.getRolById(1L));
-        role.add(userServices.getRolById(2l));
+
         model.addAttribute("newUser",new User());
-        model.addAttribute("roles",role);
+        model.addAttribute("roles",userServices.getAllRoles());
 
         return "admin/index";
     }
@@ -53,22 +51,10 @@ public class AdminController{
     }
     @GetMapping("/userIndex")
     public String user(@AuthenticationPrincipal User user, Model model){
-        //System.out.println("userIndex из admincontroller");//тут работает
         model.addAttribute("user",user);
         model.addAttribute("roles",user.getRoles());
         return "admin/userIndex";
     }
-
-/*
-    @GetMapping("/newUser") //Работает
-    public String newUserForm(@ModelAttribute("user")  User user){
-        return "admin/newUser";
-    }*/
-/*    @GetMapping("/newUser")
-    public  String newUserForm(ModelMap modelMap){
-        return "admin/newUser";
-    }*/
-
     @PostMapping("/newUser")
     public  String newUser(@ModelAttribute("newUser") User user, @RequestParam(value = "setRoles",required = false) String roles){
         if (roles == null) roles = " ";
@@ -81,29 +67,22 @@ public class AdminController{
         return "redirect:/admin";
     }
 
-    @PostMapping("/updateUser/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        //System.out.println("What you say?");
-        userServices.upDateUser(id,user);
-        return "redirect:/admin";
-    }
-
-/*    @GetMapping("/updateUser/{id}")
+    @GetMapping("/updateUser/{id}")
     public String updateUserForm (@PathVariable("id") Long id, Model model){
         User user = userServices.findById(id);
+        System.out.println(id);
         Set<Role> role = new HashSet<>();
         role.add(userServices.getRolById(1L));
         role.add(userServices.getRolById(2l));
         model.addAttribute("roles",role);
         model.addAttribute("user",user);
         return "/admin" ;
-    }*/
+    }
 
-/*
     @PostMapping("/updateUser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "setRoles",required = false) String roles){
         userServices.upDateUser(user,roles);
         return "redirect:/admin";
-    }*/
+    }
 }
 

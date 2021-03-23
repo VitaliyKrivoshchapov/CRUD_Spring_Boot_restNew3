@@ -27,9 +27,7 @@ public class UserController {
     @GetMapping("/{id}")
     public String getUserById(@PathVariable("id") Long id, Model model, Principal principal) {
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
-        //System.out.println(a);//получаем информацию о пользователе
 
-        //System.out.println(principal.getName());
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
         model.addAttribute("user", userServices.findById(id));
@@ -38,24 +36,10 @@ public class UserController {
 
     @GetMapping()
     public String user(@AuthenticationPrincipal User user, Model model){
-        //System.out.println("модель без парамерта");//тут работает
+
         model.addAttribute("user",user);
         model.addAttribute("roles",user.getRoles());
         return "userIndex";
     }
 
-    /*    @GetMapping("/updateUser/{id}")
-    public String updateUserForm (@PathVariable("id") Long id, Model model){
-        User user = userServices.findById(id);
-        System.out.println(" GetMapping from usercontroller");
-        model.addAttribute("user",user);
-        return "/user/updateUser";
-    }
-
-    @PostMapping("/updateUser")
-    public String updateUser(User user){
-        System.out.println(" Post mapping from usercontroll");
-        userServices.saveUser(user);
-    return "redirect:/user/{id}";
-    }*/
 }

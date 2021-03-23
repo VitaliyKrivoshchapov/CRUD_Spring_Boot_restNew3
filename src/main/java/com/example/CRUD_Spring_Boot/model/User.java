@@ -42,12 +42,12 @@ public class User implements UserDetails, Serializable {
     @Transient
     private String roleForHTML;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+      @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
+
 
     public User() {
     }
@@ -72,16 +72,6 @@ public class User implements UserDetails, Serializable {
         }
         return roleStr;
     }
-/*    public User(String firstName, String password) {
-        this.firstName = firstName;
-        this.password = password;
-    }
-
-    public User(String firstName, String password, Set<Role> roles) {
-        this.firstName = firstName;
-        this.password = password;
-        this.roles = roles;
-    }*/
 
     public User( String firstName, int age, String lastName, String mail, String password) {
         this.firstName = firstName;
@@ -103,10 +93,6 @@ public class User implements UserDetails, Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-   /* @Override
-    public String getUsername() {
-        return firstName;
-    }*/
 
     public Long getId() {
         return id;
@@ -175,11 +161,8 @@ public class User implements UserDetails, Serializable {
     }
 
     public String getRoleForHTML() {
+        System.out.println(" roleForHTMl from"+roleForHTML);
         return roleForHTML;
-    }
-
-    public void setRoleForHTML(String roleForHTML) {
-        this.roleForHTML = roleForHTML;
     }
 
 }

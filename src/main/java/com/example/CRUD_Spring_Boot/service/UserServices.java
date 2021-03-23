@@ -37,50 +37,25 @@ public class UserServices  {
         userRepository.deleteById(id);
     }
 
-/*    @Transactional
+    @Transactional
     public void upDateUser(User user,String roles){
-
         User newUser = userRepository.getOne(user.getId());
         Set<Role> roleSet = newUser.getRoles();
-
         if ((roles!=null)&(roles.contains("ADMIN")))
             roleSet.add(roleRepository.findRoleById(1L)); //
         if ((roles!=null)&(roles.contains("USER")))
             roleSet.add(roleRepository.findRoleById(2L)); //
         user.setRoles(roleSet);
         userRepository.save(user);
-    }*/
-
-    @Transactional
-    public User upDateUser(Long id, User user) {
-        Set<Role> setByUser = userRepository.findUserById(id).getRoles();
-        Set<Role> arr = getSetUser(id);
-        if (user.getRoleForHTML()!=null) {
-            if (user.getRoleForHTML().contains("ADMIN")) {
-                arr.add(roleRepository.findRoleById(1L));
-            }
-            if (user.getRoleForHTML().contains("USER")) {
-                arr.add(roleRepository.findRoleById(2L));
-            }
-            user.setRoles(arr);
-        } else {
-            user.setRoles(setByUser);
-        }
-     /*   if (!user.getPassword().equals(getUserFromId(id).getPassword())){
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        }*/
-        return userRepository.save(user);
     }
 
 
     @Transactional
     public void saveUser(User user,String rolesString){
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-
+    Set<Role> roles = new HashSet<>();
         if (rolesString.contains("ADMIN"))
             roles.add(roleRepository.findRoleById(1L));
-        if (rolesString.contains("USER"))//попробова eqauals
+        if (rolesString.contains("USER"))
             roles.add(roleRepository.findRoleById(2L));
         user.setRoles(roles);
         userRepository.save(user);
@@ -89,10 +64,7 @@ public class UserServices  {
         return roleRepository.findRoleById(id);
     }
 
-    public Set<Role> getSetUser( Long id) {
-        User user = userRepository.findUserById(id);
-        Set<Role> setRole = user.getRoles();
-
-        return setRole;
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
     }
 }
