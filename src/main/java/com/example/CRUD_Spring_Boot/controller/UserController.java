@@ -1,8 +1,7 @@
 package com.example.CRUD_Spring_Boot.controller;
 
 import com.example.CRUD_Spring_Boot.model.User;
-import com.example.CRUD_Spring_Boot.service.UserDetailsServices;
-import com.example.CRUD_Spring_Boot.service.UserServices;
+import com.example.CRUD_Spring_Boot.service.UserServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,11 +16,11 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserServices userServices;
+    private final UserServicesImpl userServicesImpl;
 
     @Autowired
-    public UserController(UserServices userServices) {
-        this.userServices = userServices;
+    public UserController(UserServicesImpl userServicesImpl) {
+        this.userServicesImpl = userServicesImpl;
     }
 
     @GetMapping("/{id}")
@@ -30,7 +29,7 @@ public class UserController {
 
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
-        model.addAttribute("user", userServices.findById(id));
+        model.addAttribute("user", userServicesImpl.findById(id));
         return "user/index";
     }
 

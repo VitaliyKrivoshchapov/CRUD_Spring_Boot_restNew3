@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserDetailsServices implements UserDetailsService{
+public class UserDetailsServicesImpl implements UserDetailsService{
     private final UserRepository userRepository;
     //private final PasswordEncoder passwordEncoder;
 
     //@Autowired// попробоавть без аннтотации Работает без аннотации
-    public UserDetailsServices(UserRepository userRepository) {
+    public UserDetailsServicesImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
 
     }
