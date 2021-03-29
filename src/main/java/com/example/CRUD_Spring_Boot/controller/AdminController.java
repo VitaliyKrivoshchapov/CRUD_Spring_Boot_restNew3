@@ -3,6 +3,7 @@ package com.example.CRUD_Spring_Boot.controller;
 import com.example.CRUD_Spring_Boot.model.Role;
 import com.example.CRUD_Spring_Boot.model.User;
 //import com.example.CRUD_Spring_Boot.service.RoleServices;
+import com.example.CRUD_Spring_Boot.service.UserService;
 import com.example.CRUD_Spring_Boot.service.UserServicesImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,7 +20,7 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController{
 
-    private final UserServicesImpl userServicesImpl;
+    private final UserService userServicesImpl;
 
     public AdminController(UserServicesImpl userServicesImpl) {
         this.userServicesImpl = userServicesImpl;
