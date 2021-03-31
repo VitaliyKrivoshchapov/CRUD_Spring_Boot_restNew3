@@ -1,6 +1,7 @@
 package com.example.CRUD_Spring_Boot.controller;
 
 import com.example.CRUD_Spring_Boot.model.User;
+import com.example.CRUD_Spring_Boot.service.UserService;
 import com.example.CRUD_Spring_Boot.service.UserServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,20 +17,18 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserServicesImpl userServicesImpl;
+    final UserService userService;
 
-    @Autowired
-    public UserController(UserServicesImpl userServicesImpl) {
-        this.userServicesImpl = userServicesImpl;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
-
     @GetMapping("/{id}")
-    public String getUserById(@PathVariable("id") Long id, Model model, Principal principal) {
+    public String getUserById(@PathVariable("id") Long id, Model model) {
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
 
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
-        model.addAttribute("user", userServicesImpl.findById(id));
+        model.addAttribute("user", userService.findById(id));
         return "user/index";
     }
 

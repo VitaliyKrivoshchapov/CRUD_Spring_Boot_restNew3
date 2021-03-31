@@ -14,8 +14,7 @@ import java.util.Set;
 
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
-    //private User user;
-    // Spring Security использует объект Authentication, пользователя авторизованной сессии.
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
