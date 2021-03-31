@@ -19,12 +19,8 @@ import java.util.Set;
 @Service
 public class UserDetailsServicesImpl implements UserDetailsService{
     private final UserRepository userRepository;
-    //private final PasswordEncoder passwordEncoder;
-
-    //@Autowired// попробоавть без аннтотации Работает без аннотации
     public UserDetailsServicesImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-
     }
 
     @Override
@@ -32,14 +28,24 @@ public class UserDetailsServicesImpl implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByFirstName(username);
         user.getAuthorities().size();
-        //User user = userRepository.findByMail(username);чтобы заходиь по mail
         if (username == null) {
             throw new UsernameNotFoundException(String.format("User '%' not found ", username));
         }
         return user;
     }
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//User user = userRepository.findByMail(username);чтобы заходиь по mail

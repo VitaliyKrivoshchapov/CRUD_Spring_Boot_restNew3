@@ -36,10 +36,8 @@ public class AdminController{
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
 //--------------------
-
         model.addAttribute("newUser",new User());
         model.addAttribute("roles", userServicesImpl.getAllRoles());
-
         return "admin/index";
     }
 
@@ -69,10 +67,7 @@ public class AdminController{
     @GetMapping("/updateUser/{id}")
     public String updateUserForm (@PathVariable("id") Long id, Model model){
         User user = userServicesImpl.findById(id);
-        System.out.println(id);
-        Set<Role> role = new HashSet<>();
-        role.add(userServicesImpl.getRolById(1L));
-        role.add(userServicesImpl.getRolById(2l));
+        Set<Role> role = (Set<Role>) userServicesImpl.getAllRoles();
         model.addAttribute("roles",role);
         model.addAttribute("user",user);
         return "/admin" ;

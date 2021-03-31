@@ -29,14 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.successUserHandler = successUserHandler;
 
     }
-
-/*    private final SuccessUserHandler successUserHandler;
-
-    public SecurityConfig(SuccessUserHandler successUserHandler) {
-        this.successUserHandler = successUserHandler;
-        System.out.println("Запуск конструктора  SecurityConfig ");
-    }*/
-
     @Override
     protected void configure( HttpSecurity  httpSecurity) throws Exception {
         //System.out.println("configure from securityConfig");
@@ -70,9 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }*/
     @Bean
-    public static BCryptPasswordEncoder passwordEncoder() {
-        return  new BCryptPasswordEncoder();
+    public BCryptPasswordEncoder passwordEncoder() {
+        return  new BCryptPasswordEncoder(8);
     }
-
 
 }
