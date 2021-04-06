@@ -43,6 +43,141 @@
 </div>
 <!--конец заголовка-->
 
+<!--Edit user Edit Modal-->
+<div>
+    <div class="modal fade" data-toggle="modal" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit user</h5>
+                    <a href="/admin">
+                        <button type="button" class="btn-close" aria-label="Close"></button>
+                    </a>
+                </div>
+
+                <div class="modal-body">
+                    <form id="formToEdit">
+                        <div class="form-group">
+                            <label class="form-label"><b>ID</b></label>
+                            <input class="form-control" type="text" aria-label="readonly input example" readonly
+                                   id="idEdit" name="id">
+                        </div>
+                        <div class="form-group">
+                            <label><b>First name</b></label>
+                            <input type="text" class="form-control form-control-sm"
+                                   id="nameEdit" name="firstName">
+                        </div>
+                        <div class="form-group">
+                            <label><b>Last name</b></label>
+                            <input type="text" class="form-control form-control-sm"
+                                   id="lastEdit" name="lastName">
+                        </div>
+                        <div class="form-group">
+                            <label><b>Age</b></label>
+                            <input type="number" class="form-control form-control-sm"
+                                   id="ageEdit" name="age">
+                        </div>
+                        <div class="form-group">
+                            <label><b>Email</b></label>
+                            <input type="text" class="form-control form-control-sm"
+                                   id="emailEdit" name="mail">
+                        </div>
+                        <div class="form-group">
+                            <label><b>Password</b></label>
+                            <input type="password" class="form-control form-control-sm" placeholder="Password"
+                                   id="passwordEdit" name="password">
+                        </div>
+                        <div class="form-group">
+                            <label><b>Role</b></label>
+                            <select multiple class="form-control form-control-sm" name="roleForHTML"
+                                    id="exampleFormControlSelect2">
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="USER">USER</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="/admin">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </a>
+                    <button class="btn btn-primary" id="btnEdit" type="button">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Delete user delete Modal-->
+    <div class="modal fade" data-toggle="modal" id="delModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete user</h5>
+                    <a href="/admin">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </a>
+                </div>
+
+                <div class="modal-body">
+                    <form id="formDel">
+                        <div class="form-group">
+                            <label class="form-label"><b>ID</b></label>
+                            <input class="form-control" type="text"
+                                   aria-label="readonly input example" readonly
+                                   id="idDel">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><b>First name</b></label>
+                            <input class="form-control" type="text"
+                                   aria-label="readonly input example" readonly
+                                   id="nameDel">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><b>Last name</b></label>
+                            <input class="form-control" type="text"
+                                   aria-label="readonly input example" readonly
+                                   id="lastDel">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><b>Age</b></label>
+                            <input class="form-control" type="number"
+                                   aria-label="readonly input example" readonly
+                                   id="ageDel">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><b>Email</b></label>
+                            <input class="form-control" type="text"
+                                   aria-label="readonly input example" readonly
+                                   id="emailDel">
+                        </div>
+
+                        <div class="form-group">
+                            <label><b>Role</b></label>
+                            <select multiple class="form-control form-control-sm" name="roleForHTML"
+                                    id="exampleFormControlSelect3" aria-label="readonly input example" readonly>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="USER">USER</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="/admin">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </a>
+                    <button class="btn btn-primary" id="btnDel" type="button">Delete</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="container-fluid">
     <!--основной блок состоящий из двух столбцов-->
     <div class="container">
@@ -53,7 +188,7 @@
                 <ul class="nav nav-pills flex-column">
                     <div sec:authorize="hasRole('ROLE_ADMIN')">
                         <li class="nav-item">
-                            <a href="/admin/index" class="nav-link active">Admin</a>
+                        <a href="/admin/index" class="nav-link active">Admin</a>
                         </li>
                     </div>
                     <li class="nav-item">
@@ -61,12 +196,13 @@
                     </li>
                 </ul>
             </div>
-
+        <!--правый столбец с таблицей-->
             <div class="col-10  bg-light px-5 vh-100">
                 <div class="container">
                     <h1>Admin panel</h1><!-- Правый столбец таблицей list user-->
                     <div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
+
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
                                         data-bs-target="#home" type="button"
@@ -75,14 +211,15 @@
                             </li>
 
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#formNewUser" type="button"
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#formNewUserTest" type="button"
                                         role="tab" aria-selected="false">New User
                                 </button>
                             </li>
                         </ul>
                     </div>
-                    <!--Таб таблицы пользователлей-->
 
+
+                    <!--Таб таблицы пользователлей-->
                     <div class="tab-content" role="tabpanel">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <!--таблица вывода-->
@@ -99,8 +236,7 @@
                                     <th>Delete</th>
                                 </tr>
                                 </thead>
-                                <tbody id = "tbody">
-
+                                <tbody id = "tbody"><!-- id в скрипте для заполнения-->
                                <!-- <tr th:each="user : ${users}">
                                     <td th:text="${user.getId()}"></td>
                                     <td>
@@ -347,9 +483,9 @@
                                 <!-- конец цикла-->
                                 </tbody><!--конец тела таблицы-->
                             </table>
-                        </div>
+                    </div>
 
-                        <!--Form new User-->
+                       <!--Form new User-->
                        <!-- <div class="tab-pane fade" id="formNewUser" role="tabpanel">
                             <h4 class="list-group-item  border-0" style="background-color: #f7f7f7">Add new user</h4>
                             <div class="text-center">
@@ -395,62 +531,68 @@
                             </div>
                         </div>-->
 
-                        <div class="tab-pane fade" id="formNewUser" role="tabpanel" aria-labelledby="new-user">
+                        <div class="tab-pane fade" id="formNewUserTest" role="tabpanel" aria-labelledby="new-user">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Add new user</h4>
+                                    <h4>Add new User</h4>
                                 </div>
                                 <div id="secondActiveTabPanel" class="card-body col-md-6">
-                                    <form id="formNewUser1">
+                                    <form id="formAddUser">
                                         <div class="form-group">
-                                            <label for="nameNewUserI"><b>First name</b></label>
-                                            <input id="nameNewUserI" type="text" class="form-control form-control-sm"
-                                                   placeholder="First name" name="name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="lastNameNewUserI"><b>Last name</b></label>
-                                            <input type="text" id="lastNameNewUserI"
+                                            <label for="nameNewUser"><b>First name</b></label>
+                                            <input type="text" id="nameNewUser"
                                                    class="form-control form-control-sm"
-                                                   placeholder="Last name" name="lastName">
+                                                   placeholder="First name"
+                                                   name="firstName">
                                         </div>
                                         <div class="form-group">
-                                            <label for="ageNewUserI"><b>Age</b></label>
-                                            <input type="number" id="ageNewUserI" class="form-control form-control-sm"
-                                                   name="age"
-                                                   placeholder="Age">
+                                            <label for="lastNameNewUser"><b>Last name</b></label>
+                                            <input type="text" id="lastNameNewUser"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="Last name"
+                                                   name="lastName">
                                         </div>
                                         <div class="form-group">
-                                            <label for="emailNewUserI"><b>Email</b></label>
-                                            <input id="emailNewUserI" type="text" class="form-control form-control-sm"
-                                                   name="email"
-                                                   placeholder="Email">
+                                            <label for="ageNewUser"><b>Age</b></label>
+                                            <input type="number" id="ageNewUser" class="form-control form-control-sm"
+                                                   placeholder="Age"
+                                                   name="age">
                                         </div>
                                         <div class="form-group">
-                                            <label for="passwordNewUserI"><b>Password</b></label>
-                                            <input id="passwordNewUserI" type="password"
+                                            <label for="emailNewUser"><b>Email</b></label>
+                                            <input type="text" id="emailNewUser" class="form-control form-control-sm"
+                                                   placeholder="Email"
+                                                   name="mail">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="passwordNewUser"><b>Password</b></label>
+                                            <input id="passwordNewUser" type="password"
                                                    class="form-control form-control-sm"
                                                    placeholder="Password" name="password">
                                         </div>
                                         <div class="form-group">
                                             <label><b>Role</b></label>
                                             <select multiple class="form-control form-control-sm" name="roleForHTML"
-                                                    id="exampleFormControlSelect1">
+                                                    id="exampleFormControlSelect">
                                                 <option value="ADMIN">ADMIN</option>
                                                 <option value="USER">USER</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <button class="btn btn-success btn-lg" id="btnAddNewUser" type="button">Add
-                                                new user
+                                            <button class="btn btn-success btn-lg" id="btnNewUser"
+                                                    type="button">Add new user
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                        </div
+                        </div>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
     </div>
 </div>
