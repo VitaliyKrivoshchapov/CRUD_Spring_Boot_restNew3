@@ -89,8 +89,6 @@ $(document).on("click", "#btnDel", function () {
     })
 })
 
-
-
 $(document).on("click", ".edit", function () {
     let user = $(this).data("user");
     $("#idEdit").val(user.id);
@@ -108,8 +106,9 @@ $(document).on("click", "#btnEdit", function () {
         data: user,
         timeout: 3000,
         success: function (){
-            $('#editModal').modal('hide')
-            $('.btn-close').trigger('click');
+            $('#editModal').trigger('click')
+            //$('.btn-close').trigger('click');
+
              getAllUser()
         }
     })
