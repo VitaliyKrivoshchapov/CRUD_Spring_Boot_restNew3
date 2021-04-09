@@ -42,14 +42,13 @@ public class User implements UserDetails, Serializable {
     @Transient
     private String roleForHTML;
 
-    @ManyToMany(fetch = FetchType.EAGER) // узнать что такое fetch = FetchType.EAGER
-    private Set<Role> roles;
-    /* @ManyToMany(fetch = FetchType.LAZY,
+
+     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private Set<Role> roles;*/
+    private Set<Role> roles;
 
 
     public User() {
