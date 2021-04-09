@@ -53,18 +53,18 @@ public class AdminController{
         model.addAttribute("roles",user.getRoles());
         return "admin/userIndex";
     }
-    @PostMapping("/newUser")
+/*    @PostMapping("/newUser")
     public  String newUser(@ModelAttribute("newUser") User user, @RequestParam(value = "setRoles",required = false) String roles){
         if (roles == null) roles = " ";
         userServicesImpl.saveUser(user);
         return  "redirect:/admin";
-    }
-    @GetMapping("/delUser/{id}")
+    }*/
+/*    @GetMapping("/delUser/{id}")
     public String delUser(@PathVariable("id") Long id){
         userServicesImpl.deleteById(id);
         return "redirect:/admin";
-    }
-
+    }*/
+/*
     @GetMapping("/updateUser/{id}")
     public String updateUserForm (@PathVariable("id") Long id, Model model){
         User user = userServicesImpl.findById(id);
@@ -75,12 +75,12 @@ public class AdminController{
         model.addAttribute("roles",role);
         model.addAttribute("user",user);
         return "/admin" ;
-    }
+    }*/
 
-    @PostMapping("/updateUser/{id}")
+ /*   @PostMapping("/updateUser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "setRoles",required = false) String roles){
         userServicesImpl.upDateUser(user,roles);
         return "redirect:/admin";
-    }
+    }*/
 }
 

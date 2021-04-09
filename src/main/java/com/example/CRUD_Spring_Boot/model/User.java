@@ -164,7 +164,6 @@ public class User implements UserDetails, Serializable {
     }
 
     public String getRoleForHTML() {
-        System.out.println(" roleForHTMl from"+roleForHTML);
         return roleForHTML;
     }
 

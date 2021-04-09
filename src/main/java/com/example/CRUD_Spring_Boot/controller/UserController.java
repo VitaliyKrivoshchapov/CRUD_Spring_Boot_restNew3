@@ -31,7 +31,6 @@ public class UserController {
         model.addAttribute("user", userService.findById(id));
         return "user/index";
     }
-
     @GetMapping()
     public String user(@AuthenticationPrincipal User user, Model model){
 

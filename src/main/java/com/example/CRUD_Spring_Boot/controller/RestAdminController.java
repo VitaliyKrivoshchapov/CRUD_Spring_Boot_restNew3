@@ -5,6 +5,7 @@ import com.example.CRUD_Spring_Boot.service.UserService;
 import com.example.CRUD_Spring_Boot.service.UserServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +23,12 @@ public class RestAdminController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping()
-    public List<User> findAllUsers(){
-        return userService.findAll();
+    public ResponseEntity<List<User>> findAllUsers(){
+    return ResponseEntity.ok(userService.findAll());
     }
     @PostMapping("addUser")
     @ResponseStatus(HttpStatus.CREATED)
     public void addUser(User user){
-
         userService.saveUser(user);
     }
     @ResponseStatus(HttpStatus.OK)
