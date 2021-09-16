@@ -22,6 +22,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @GetMapping("/{id}")
     public String getUserById(@PathVariable("id") Long id, Model model) {
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
@@ -29,14 +30,15 @@ public class UserController {
         User user = (User) a.getPrincipal();
         model.addAttribute("userGotIn", user);
         model.addAttribute("user", userService.findById(id));
+
         return "user/index";
     }
-    @GetMapping()
-    public String user(@AuthenticationPrincipal User user, Model model){
 
-        model.addAttribute("user",user);
-        model.addAttribute("roles",user.getRoles());
+    @GetMapping()
+    public String user(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("user", user);
+        model.addAttribute("roles", user.getRoles());
+
         return "userIndex";
     }
-
 }

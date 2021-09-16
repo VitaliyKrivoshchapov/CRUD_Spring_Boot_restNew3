@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <title>User update</title>
 </head>
+
 <body>
 <h1>Редактирование пользователя доступное пользователю</h1>
 <form action="#" th:action="@{/user/updateUser}" th:object="${user}" method="post">
- <!--   <form th: method="patch" th:action="@{/updateUser/{id}(id=${user.getId()})}" th:object="${user}" >-->
 
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">

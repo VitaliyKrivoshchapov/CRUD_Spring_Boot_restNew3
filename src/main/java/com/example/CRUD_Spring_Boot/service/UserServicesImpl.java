@@ -15,6 +15,7 @@ import java.util.Set;
 
 @Service
 public class UserServicesImpl implements UserService{
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
@@ -27,9 +28,11 @@ public class UserServicesImpl implements UserService{
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
+    @Transactional
     public User findById(Long id){
         return userRepository.getOne(id);
     }
+
     @Transactional
     public List<User> findAll(){
         return userRepository.findAll();
@@ -41,14 +44,17 @@ public class UserServicesImpl implements UserService{
     }
 
     @Transactional
-        public void upDateUser(User user,String roles){
+    public void upDateUser(User user, String roles) {
         User newUser = userRepository.getOne(user.getId());
         Set<Role> roleSet = newUser.getRoles();
-        if ((roles!=null)&(roles.contains("ADMIN")))
+
+        if ((roles != null) & (roles.contains("ADMIN")))
             roleSet.add(roleRepository.findRoleById(1L)); //
-        if ((roles!=null)&(roles.contains("USER")))
+
+        if ((roles != null) & (roles.contains("USER")))
             roleSet.add(roleRepository.findRoleById(2L)); //
-        user.setPassword(changePass(user.getId(),user.getPassword()));
+
+        user.setPassword(changePass(user.getId(), user.getPassword()));
         user.setRoles(roleSet);
         userRepository.save(user);
     }
@@ -57,15 +63,17 @@ public class UserServicesImpl implements UserService{
         if (password != "") {
             return bCryptPasswordEncoder.encode(password);
         }
-        return findById(id).getPassword(); //переприсваиваем пароль из текущего пользователея в базе
+        return findById(id).getPassword();
     }
 
     @Transactional
-    public void saveUser(User user){
+    public void saveUser(User user) {
         String rol = user.getRoleForHTML();
+
         Set<Role> roles = new HashSet<>();
+
         if (rol.contains("ADMIN"))
-            roles.add(roleRepository.findRoleById(1L));
+            roles.add(roleRepository.getRoleById(1L));
         if (rol.contains("USER"))
             roles.add(roleRepository.findRoleById(2L));
         user.setRoles(roles);
@@ -73,10 +81,20 @@ public class UserServicesImpl implements UserService{
         userRepository.save(user);
     }
 
-     public Role getRolById(Long id){
-        return roleRepository.findRoleById(id);
+    @Override
+    public String getRolByName(String name) {
+        User user = userRepository.findByFirstName(name);
+        return user.getRoleStr(user);
     }
+    public  Role findRoleObjectByName(String name){
+        User user = userRepository.findByFirstName(name);
+        String role = getRolByName(user.getFirstName());
 
+        if (role.contains("ADMIN"))  return roleRepository.getRoleById(1l);
+        if (role.contains("USER"))  return roleRepository.getRoleById(2l);
+        return  null;
+
+    }
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }

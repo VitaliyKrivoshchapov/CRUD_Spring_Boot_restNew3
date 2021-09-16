@@ -11,6 +11,8 @@ public interface UserService {
     void deleteById(Long id);
     void upDateUser(User user,String roles);
     void saveUser(User user);
-    Role getRolById(Long id);
+    //Role getRolById(Long id);
+    Role findRoleObjectByName(String name);// добавил
+    String getRolByName(String name);// добавил
     List<Role> getAllRoles();
     }

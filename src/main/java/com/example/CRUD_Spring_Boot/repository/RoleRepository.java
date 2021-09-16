@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface RoleRepository  extends JpaRepository<Role, Long> {
     Role findRoleById(Long id);
+    Role getRoleById(Long id);
     List<Role> findAll();
-    //Role findByName(String role);
+
+
 }

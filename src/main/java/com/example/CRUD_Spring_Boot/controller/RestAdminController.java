@@ -11,37 +11,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-
 @RestController
 @RequestMapping("/restAdmin")
 public class RestAdminController {
 
     private UserService userService;
+
     public RestAdminController(UserService userService) {
         this.userService = userService;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping()
-    public ResponseEntity<List<User>> findAllUsers(){
-    return ResponseEntity.ok(userService.findAll());
+    public ResponseEntity<List<User>> findAllUsers() {
+        return ResponseEntity.ok(userService.findAll());
     }
+
     @PostMapping("addUser")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUser(User user){
+    public void addUser(User user) {
         userService.saveUser(user);
     }
+
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/del")
-    public void delUser(Long id){
-           userService.deleteById(id);
+    public void delUser(Long id) {
+        userService.deleteById(id);
     }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/edit")
-    public void editUser(User user){
+    public void editUser(User user) {
         String role = user.getRoleForHTML();
-        userService.upDateUser(user,role);
+        userService.upDateUser(user, role);
     }
-
-
 }

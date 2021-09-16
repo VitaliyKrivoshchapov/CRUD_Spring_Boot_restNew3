@@ -1,6 +1,7 @@
 package com.example.CRUD_Spring_Boot.model;
 
 
+import com.example.CRUD_Spring_Boot.repository.UserRepository;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,13 +44,12 @@ public class User implements UserDetails, Serializable {
     private String roleForHTML;
 
 
-     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(fetch = FetchType.LAZY)//cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private Set<Role> roles;
 
+    private Set<Role> roles;
 
     public User() {
     }
@@ -161,9 +161,8 @@ public class User implements UserDetails, Serializable {
                 ", roles=" + roles +
                 '}';
     }
-
     public String getRoleForHTML() {
-        return roleForHTML;
+              return roleForHTML;
     }
 
 }
