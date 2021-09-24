@@ -38,7 +38,6 @@ public class AdminController {
 //--------------------
         model.addAttribute("newUser", new User());
         model.addAttribute("roles", userService.getAllRoles());
-
         return "admin/index";
     }
 

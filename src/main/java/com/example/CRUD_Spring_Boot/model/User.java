@@ -12,8 +12,6 @@ import java.util.Collection;
 import java.util.Set;
 
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 //@NoArgsConstructor//работает и без этих аннотаций CRUD
 @Entity
@@ -40,8 +38,8 @@ public class User implements UserDetails, Serializable {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    private String roleForHTML;
+    //@Transient
+    //private String roleForHTML;
 
 
     @ManyToMany(fetch = FetchType.LAZY)//cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}
@@ -50,6 +48,7 @@ public class User implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
 
     private Set<Role> roles;
+
 
     public User() {
     }
@@ -149,6 +148,7 @@ public class User implements UserDetails, Serializable {
         this.roles = roles;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -161,8 +161,8 @@ public class User implements UserDetails, Serializable {
                 ", roles=" + roles +
                 '}';
     }
-    public String getRoleForHTML() {
+ /*   public String getRoleForHTML() {
               return roleForHTML;
-    }
+    }*/
 
 }

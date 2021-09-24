@@ -1,10 +1,12 @@
 package com.example.CRUD_Spring_Boot.model;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
 @Table(name = "role")
 @Entity
 public class Role implements GrantedAuthority {

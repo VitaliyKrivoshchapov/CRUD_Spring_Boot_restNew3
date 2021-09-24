@@ -65,8 +65,8 @@
 
                             <td th:text="${user.getId()}"></td>
                             <td >
-                              <!--  <a th:text="${user.getFirstName()}"></a>-->
-                                <a th:text="${user.getFirstName()}" th:href ="@{admin/{id}(id=${user.id})}"></a>
+                            <!--  <a th:text="${user.getFirstName()}"></a>-->
+                            <a th:text="${user.getFirstName()}" th:href ="@{admin/{id}(id=${user.id})}"></a>
                             </td>
                             <td th:text="${user.getLastName()}"></td>
                             <td th:text="${user.age}"></td>

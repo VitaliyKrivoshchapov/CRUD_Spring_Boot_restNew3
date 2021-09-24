@@ -31,8 +31,7 @@
     <br/>
 
     <li th:each="role : ${roles}">
-        <input type="checkbox" name="setRoles" th:value="${role}"
-               th:text="${role}" />
+        <input type="checkbox" name="setRoles" th:value="${role}"th:text="${role}" />
     </li>
          <button type="submit" value="Save">Save</button>
     </form>

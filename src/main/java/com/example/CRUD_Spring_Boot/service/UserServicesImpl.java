@@ -44,18 +44,11 @@ public class UserServicesImpl implements UserService{
     }
 
     @Transactional
-    public void upDateUser(User user, String roles) {
-        User newUser = userRepository.getOne(user.getId());
-        Set<Role> roleSet = newUser.getRoles();
+    public void upDateUser(User user) {
 
-        if ((roles != null) & (roles.contains("ADMIN")))
-            roleSet.add(roleRepository.findRoleById(1L)); //
-
-        if ((roles != null) & (roles.contains("USER")))
-            roleSet.add(roleRepository.findRoleById(2L)); //
 
         user.setPassword(changePass(user.getId(), user.getPassword()));
-        user.setRoles(roleSet);
+
         userRepository.save(user);
     }
 
@@ -68,15 +61,7 @@ public class UserServicesImpl implements UserService{
 
     @Transactional
     public void saveUser(User user) {
-        String rol = user.getRoleForHTML();
 
-        Set<Role> roles = new HashSet<>();
-
-        if (rol.contains("ADMIN"))
-            roles.add(roleRepository.getRoleById(1L));
-        if (rol.contains("USER"))
-            roles.add(roleRepository.findRoleById(2L));
-        user.setRoles(roles);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

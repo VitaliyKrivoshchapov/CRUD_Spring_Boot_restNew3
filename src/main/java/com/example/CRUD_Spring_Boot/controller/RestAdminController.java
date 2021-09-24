@@ -1,5 +1,7 @@
 package com.example.CRUD_Spring_Boot.controller;
 
+import com.example.CRUD_Spring_Boot.DTO.DtoUser;
+import com.example.CRUD_Spring_Boot.DTO.MapDtoToUser;
 import com.example.CRUD_Spring_Boot.model.User;
 import com.example.CRUD_Spring_Boot.service.UserService;
 import com.example.CRUD_Spring_Boot.service.UserServicesImpl;
@@ -29,8 +31,14 @@ public class RestAdminController {
 
     @PostMapping("addUser")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUser(User user) {
+    public void addUser(DtoUser dtoUser)
+    {
+
+        MapDtoToUser mapDtoToUser = new MapDtoToUser();
+        User user = mapDtoToUser.mapDtoToUser(dtoUser);
+
         userService.saveUser(user);
+
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -42,7 +50,7 @@ public class RestAdminController {
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/edit")
     public void editUser(User user) {
-        String role = user.getRoleForHTML();
-        userService.upDateUser(user, role);
+               userService.upDateUser(user);
+
     }
 }
