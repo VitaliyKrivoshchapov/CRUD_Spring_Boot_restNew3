@@ -45,10 +45,7 @@ public class UserServicesImpl implements UserService{
 
     @Transactional
     public void upDateUser(User user) {
-
-
         user.setPassword(changePass(user.getId(), user.getPassword()));
-
         userRepository.save(user);
     }
 
@@ -66,20 +63,12 @@ public class UserServicesImpl implements UserService{
         userRepository.save(user);
     }
 
-    @Override
+   @Override
     public String getRolByName(String name) {
         User user = userRepository.findByFirstName(name);
-        return user.getRoleStr(user);
+        return user.getRoleStr(user.getRoles());
     }
-    public  Role findRoleObjectByName(String name){
-        User user = userRepository.findByFirstName(name);
-        String role = getRolByName(user.getFirstName());
 
-        if (role.contains("ADMIN"))  return roleRepository.getRoleById(1l);
-        if (role.contains("USER"))  return roleRepository.getRoleById(2l);
-        return  null;
-
-    }
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }

@@ -64,7 +64,7 @@ public class User implements UserDetails, Serializable {
         this.password = password;
         this.roles = roles;
     }
-    public String getRoleStr(User user){
+/*    public String getRoleStr(User user){
         String roleStr = new String();
         Set<Role>set = user.getRoles();
         for (Role role : set){
@@ -72,7 +72,20 @@ public class User implements UserDetails, Serializable {
                     replace(","," ").replace("_"," ");
         }
         return roleStr;
+    }*/
+
+    public String getRoleStr(Set<Role> set){
+        String roleStr = new String();
+        for (Role role : set){
+            roleStr+= role.getRole().replace("ROLE"," ").replace("[",
+                            " ").replace("]","").
+                    replace(","," ").replace("_"," ");
+        }
+        return roleStr;
     }
+
+
+
 
     public User( String firstName, int age, String lastName, String mail, String password) {
         this.firstName = firstName;
@@ -161,8 +174,6 @@ public class User implements UserDetails, Serializable {
                 ", roles=" + roles +
                 '}';
     }
- /*   public String getRoleForHTML() {
-              return roleForHTML;
-    }*/
+
 
 }

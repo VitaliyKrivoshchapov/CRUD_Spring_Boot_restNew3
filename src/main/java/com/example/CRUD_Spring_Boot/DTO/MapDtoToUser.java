@@ -23,7 +23,7 @@ public class MapDtoToUser {
         Set<Role> roleSet = new HashSet<>();
 
         if (dtoUser.getRoleForHTML().contains("ADMIN")) {
-            role.setRole("ADMIN");//roleRepository
+            role.setRole("ADMIN");
             role.setId(1L);
             roleSet.add(role);//вот тут
 

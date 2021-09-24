@@ -13,7 +13,7 @@ public interface UserService {
     //void upDateUser(User user Role role);
     void saveUser(User user);
     //Role getRolById(Long id);
-    Role findRoleObjectByName(String name);// добавил
+    //Role findRoleObjectByName(String name);// добавил
     String getRolByName(String name);// добавил
     List<Role> getAllRoles();
     }
